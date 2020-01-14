@@ -402,6 +402,7 @@ func (r *raftFSM) restoreChannelsFromSnapshot(serverSnap *spb.RaftSnapshot, inNe
 			if err := r.restoreMsgsFromSnapshot(c, sc.First, sc.Last, false); err != nil {
 				s.log.Errorf("channel %q - unable to restore messages, can't start until leader is available",
 					sc.Channel)
+				s.log.Errorf(err.Error())
 				time.Sleep(restoreMsgsSleepBetweenAttempts)
 			} else {
 				ok = true
